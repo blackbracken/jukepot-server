@@ -1,4 +1,4 @@
-package black.bracken
+package black.bracken.jukepotserver
 
 import io.ktor.application.Application
 import io.ktor.application.call
