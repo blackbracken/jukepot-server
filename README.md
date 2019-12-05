@@ -4,4 +4,6 @@
 1. Clone this repo & move to the workspace.
 2. `$ ./gradlew shadowJar`
 3. `$ docker build -t jukepot-server .`
-4. `$ docker run -m1G --cpus 2 -p <PORT>:8080 -it --rm jukepot-server`
+4. Write variables for docker-compose into `.env`.
+5. `$ docker-compose build`
+6. `$ docker-compose up -d`
