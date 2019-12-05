@@ -1,14 +1,26 @@
 version: '3'
+
 services:
   jukepot:
     container_name: jukepot-server
     build: ./
     ports:
-      - "80:8080"
+      - '80:8080'
+    networks:
+      - 'jukepot-net'
+
   mariadb:
-    container_name: mariadb
+    container_name: jukepot-mariadb
     image: mariadb:10.4.10
     environment:
       MYSQL_ROOT_PASSWORD: "${DB_PASSWORD?}"
+    expose:
+      - '3306'
     ports:
-      - "3306:3306"
+      - '3306:3306'
+    networks:
+      - 'jukepot-net'
+
+networks:
+  jukepot-net:
+    driver: bridge
