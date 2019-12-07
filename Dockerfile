@@ -1,4 +1,4 @@
-FROM openjdk:8-jre-alpine
+FROM openjdk:8-jre-alpine AS dev
 
 ENV APPLICATION_USER ktor
 RUN adduser -D -g '' $APPLICATION_USER
@@ -23,4 +23,3 @@ CMD ["java", \
      "-XX:+UseStringDeduplication", \
      "-jar", \
      "jukepot-server.jar"]
-
