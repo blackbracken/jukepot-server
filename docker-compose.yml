@@ -1,26 +1,38 @@
 version: '3'
 
 services:
+  mariadb:
+    container_name: jukepot-mariadb
+    image: mariadb:10.4.10
+    command: mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci
+    environment:
+      - "MYSQL_DATABASE=${DB_DATABASE?}"
+      - "MYSQL_USER=${DB_USER?}"
+      - "MYSQL_PASSWORD=${DB_PASSWORD?}"
+      - "MYSQL_ROOT_PASSWORD=${DB_ROOT_PASSWORD?}"
+    expose:
+      - '3306'
+    networks:
+      - 'jukepot-net'
+    #volumes:
+    #  - mysql:/var/lib/mysql
+
   jukepot:
     container_name: jukepot-server
     build: ./
+    expose:
+      - '80'
     ports:
       - '80:8080'
     networks:
       - 'jukepot-net'
-
-  mariadb:
-    container_name: jukepot-mariadb
-    image: mariadb:10.4.10
-    environment:
-      MYSQL_ROOT_PASSWORD: "${DB_PASSWORD?}"
-    expose:
-      - '3306'
-    ports:
-      - '3306:3306'
-    networks:
-      - 'jukepot-net'
+    depends_on:
+      - mariadb
 
 networks:
   jukepot-net:
     driver: bridge
+
+volumes:
+  mysql:
+    driver: local
