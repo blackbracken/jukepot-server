@@ -1,0 +1,3 @@
+CREATE DATABASE IF NOT EXISTS `jukepot`;
+
+GRANT ALL PRIVILEGES ON *.* TO 'dev'@'%' IDENTIFIED BY 'password';

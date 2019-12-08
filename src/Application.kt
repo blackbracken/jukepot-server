@@ -23,9 +23,12 @@ fun main() = EngineMain.main(arrayOf())
 
 @KtorExperimentalAPI
 fun Application.module() {
+    // TODO: don't sleep on app
+    Thread.sleep(45_000)
+
     with(environment.config) {
         val dbHost = propertyOrNull("$ENV_DATABASE.host")?.getString() ?: "localhost"
-        val dbDatabase = propertyOrNull("$ENV_DATABASE.database")?.getString() ?: "jukebox"
+        val dbDatabase = propertyOrNull("$ENV_DATABASE.database")?.getString() ?: "jukepot"
         val dbUser = property("$ENV_DATABASE.user").getString()
         val dbPassword = property("$ENV_DATABASE.password").getString()
 
@@ -36,7 +39,7 @@ fun Application.module() {
         SchemaUtils.create(Numbers)
     }
 
-    embeddedServer(Netty, port = 8080) {
+    embeddedServer(Netty) {
         routing {
             get("/") {
                 call.respondText("Hi.", ContentType.Text.Plain)
