@@ -1,17 +1,9 @@
-FROM openjdk:8-jre-alpine AS dev
-
-ENV APPLICATION_USER ktor
-RUN adduser -D -g '' $APPLICATION_USER
-
-RUN mkdir /app
-RUN chown -R $APPLICATION_USER /app
-
-USER $APPLICATION_USER
+FROM openjdk:8-jre-alpine
 
 COPY ./build/libs/jukepot-server.jar /app/jukepot-server.jar
 WORKDIR /app
 
-CMD ["java", \
+ENTRYPOINT ["java", \
      "-server", \
      "-XX:+UnlockExperimentalVMOptions", \
      "-XX:+UseCGroupMemoryLimitForHeap", \
