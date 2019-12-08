@@ -3,7 +3,7 @@ FROM openjdk:8-jre-alpine
 COPY ./build/libs/jukepot-server.jar /app/jukepot-server.jar
 WORKDIR /app
 
-ENTRYPOINT ["java", \
+CMD ["java", \
      "-server", \
      "-XX:+UnlockExperimentalVMOptions", \
      "-XX:+UseCGroupMemoryLimitForHeap", \
