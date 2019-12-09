@@ -27,8 +27,8 @@ object JukepotDatabase {
 
         fun tryConnectBlocking(trials: Int): Connection? =
             (0 until trials).asSequence()
-                .onEach { Thread.sleep(1_000) }
-                .mapNotNull { getConnectionOrNull() }
+                .map { getConnectionOrNull() ?: Thread.sleep(1_000) } // (Connection | Unit)
+                .filterIsInstance<Connection>()
                 .firstOrNull()
 
         Database.connect(getNewConnection = {
