@@ -34,10 +34,13 @@ fun Application.module() {
         val dbPassword = property("$ENV_DATABASE.password").getString()
 
         val url = "jdbc:mariadb://$dbHost/$dbDatabase"
-        while (getConnectionOrNull(url, dbUser, dbPassword)?.also(Connection::close) == null) {
-            Thread.sleep(1_000)
-        }
-
+        (0 until 2 * 60).asSequence()
+            .map {
+                Thread.sleep(1_000)
+                getConnectionOrNull(url, dbUser, dbPassword)
+            }
+            .firstOrNull()
+            ?.close() ?: throw IllegalAccessException("Couldn't connect to database!")
         Database.connect(url, "org.mariadb.jdbc.Driver", dbUser, dbPassword)
     }
 
