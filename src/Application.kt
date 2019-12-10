@@ -3,6 +3,9 @@ package black.bracken.jukepotserver
 import black.bracken.jukepotserver.database.JukepotDatabase
 import black.bracken.jukepotserver.routes.register
 import io.ktor.application.Application
+import io.ktor.application.install
+import io.ktor.features.ContentNegotiation
+import io.ktor.gson.gson
 import io.ktor.routing.routing
 import io.ktor.server.engine.embeddedServer
 import io.ktor.server.netty.EngineMain
@@ -26,6 +29,10 @@ fun Application.module() {
 
     embeddedServer(Netty) {
         routing {
+            install(ContentNegotiation) {
+                gson {}
+            }
+
             register()
         }
     }.start(wait = true)

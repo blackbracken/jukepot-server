@@ -25,9 +25,10 @@ object JukepotDatabase {
                 null
             }
 
+        // TODO: consider using Either
         fun tryConnectBlocking(trials: Int): Connection? =
             (0 until trials).asSequence()
-                .map { getConnectionOrNull() ?: Thread.sleep(1_000) } // (Connection | Unit)
+                .map { getConnectionOrNull() ?: Thread.sleep(1_000) }
                 .filterIsInstance<Connection>()
                 .firstOrNull()
 
