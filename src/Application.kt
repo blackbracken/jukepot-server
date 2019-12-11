@@ -1,7 +1,7 @@
 package black.bracken.jukepotserver
 
 import black.bracken.jukepotserver.database.JukepotDatabase
-import black.bracken.jukepotserver.routes.register
+import black.bracken.jukepotserver.routes.register.register
 import io.ktor.application.Application
 import io.ktor.application.install
 import io.ktor.features.ContentNegotiation
