@@ -1,7 +1,7 @@
-package black.bracken.jukepotserver
+package black.bracken.jukepotserver.core
 
 import black.bracken.jukepotserver.database.JukepotDatabase
-import black.bracken.jukepotserver.routes.register.register
+import black.bracken.jukepotserver.infrastructure.route.register
 import io.ktor.application.Application
 import io.ktor.application.install
 import io.ktor.features.ContentNegotiation
@@ -11,6 +11,7 @@ import io.ktor.server.engine.embeddedServer
 import io.ktor.server.netty.EngineMain
 import io.ktor.server.netty.Netty
 import io.ktor.util.KtorExperimentalAPI
+import org.koin.ktor.ext.Koin
 
 private const val ENV_DATABASE = "jukepot.database"
 
@@ -30,7 +31,12 @@ fun Application.module() {
     embeddedServer(Netty) {
         routing {
             install(ContentNegotiation) {
-                gson {}
+                gson {
+                    setPrettyPrinting()
+                }
+            }
+            install(Koin) {
+                modules(appModule)
             }
 
             register()

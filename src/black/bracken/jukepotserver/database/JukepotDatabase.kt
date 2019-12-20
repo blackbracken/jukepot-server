@@ -33,7 +33,7 @@ object JukepotDatabase {
                 .firstOrNull()
 
         Database.connect(getNewConnection = {
-            tryConnectBlocking(TRIALS) ?: throw IllegalAccessException("Couldn't connect to database!")
+            tryConnectBlocking(TRIALS) ?: throw IllegalAccessException("Couldn't connect to black.bracken.jukepotserver.database!")
         })
 
         transaction {
