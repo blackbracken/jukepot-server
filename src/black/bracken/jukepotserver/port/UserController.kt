@@ -4,6 +4,9 @@ import arrow.core.Either
 import arrow.core.left
 import arrow.core.right
 import black.bracken.jukepotserver.domain.UserToken
+import black.bracken.jukepotserver.domain.user.EmailAddress
+import black.bracken.jukepotserver.domain.user.Password
+import black.bracken.jukepotserver.domain.user.UserName
 import black.bracken.jukepotserver.util.InvalidResponse
 import black.bracken.jukepotserver.util.PasswordHashGenerator
 import java.util.*
@@ -14,19 +17,19 @@ class UserController {
         private const val SALT_LENGTH = 32
     }
 
-    fun register(name: String, email: String, password: String): Either<InvalidResponse, UserToken> {
+    fun register(nameText: String, addressText: String, passwordText: String): Either<InvalidResponse, UserToken> {
         val uuid = UUID.randomUUID().toString()
-        val passwordHash = PasswordHashGenerator.generate(password, SALT_LENGTH) ?: return InvalidResponse().left()
+        val passwordHash = PasswordHashGenerator.generate(passwordText, SALT_LENGTH)
+            ?: return InvalidResponse().left()
 
-        when { // TODO: for test; remove
-            email.isEmpty() -> return InvalidResponse("Email must not empty!").left()
-            name.isEmpty() -> return InvalidResponse("Name must not empty!").left()
-            password.isEmpty() -> return InvalidResponse("Password must not empty!").left()
-        }
+        // TODO: remove; test domain validation
+        val address = EmailAddress(addressText) ?: return InvalidResponse("Email is invalid!").left()
+        val userName = UserName(nameText) ?: return InvalidResponse("Name is invalid!").left()
+        val password = Password(passwordText) ?: return InvalidResponse("Password is invalid!").left()
 
         println("UUID: $uuid")
-        println("Name: $name")
-        println("Email: $email")
+        println("Name: $nameText")
+        println("Email: $address")
         println("Password(hashed): ${passwordHash.hash}")
         println("Salt: ${passwordHash.salt}")
 
