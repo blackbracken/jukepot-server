@@ -15,7 +15,7 @@ fun Route.register() {
     post<RegisterRequest>("/register") { register ->
         when (val result = userController.register(register.name, register.email, register.password)) {
             is Either.Right -> call.respondText(result.b)
-            is Either.Left -> call.respondText(result.a.message ?: "Internal Error.")
+            is Either.Left -> call.respondText(result.a.message)
         }
     }
 }
