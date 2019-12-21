@@ -25,7 +25,6 @@ object JukepotDatabase {
                 null
             }
 
-        // TODO: consider using Either
         fun tryConnectBlocking(trials: Int): Connection? =
             (0 until trials).asSequence()
                 .map { getConnectionOrNull() ?: Thread.sleep(1_000) }
@@ -33,7 +32,7 @@ object JukepotDatabase {
                 .firstOrNull()
 
         Database.connect(getNewConnection = {
-            tryConnectBlocking(TRIALS) ?: throw IllegalAccessException("Couldn't connect to black.bracken.jukepotserver.database!")
+            tryConnectBlocking(TRIALS) ?: throw IllegalAccessException("Couldn't connect to database!")
         })
 
         transaction {

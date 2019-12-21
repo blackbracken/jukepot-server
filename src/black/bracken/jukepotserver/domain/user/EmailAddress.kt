@@ -2,12 +2,13 @@ package black.bracken.jukepotserver.domain.user
 
 import org.apache.commons.validator.routines.EmailValidator
 
-@Suppress("DataClassPrivateConstructor")
-data class EmailAddress private constructor(val text: String) {
+interface EmailAddress {
+    val text: String
 
     companion object {
-        operator fun invoke(text: String): EmailAddress? =
-            if (EmailValidator.getInstance(true).isValid(text)) EmailAddress(text) else null
+        fun of(text: String): EmailAddress? =
+            if (EmailValidator.getInstance(true).isValid(text)) Concrete(text) else null
     }
 
+    private data class Concrete(override val text: String) : EmailAddress
 }

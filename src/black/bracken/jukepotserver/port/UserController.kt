@@ -23,9 +23,9 @@ class UserController {
             ?: return InvalidResponse().left()
 
         // TODO: remove; test domain validation
-        val address = EmailAddress(addressText) ?: return InvalidResponse("Email is invalid!").left()
-        val userName = UserName(nameText) ?: return InvalidResponse("Name is invalid!").left()
-        val password = Password(passwordText) ?: return InvalidResponse("Password is invalid!").left()
+        val address = EmailAddress.of(addressText) ?: return InvalidResponse("Email is invalid!").left()
+        val userName = UserName.of(nameText) ?: return InvalidResponse("Name is invalid!").left()
+        val password = Password.of(passwordText) ?: return InvalidResponse("Password is invalid!").left()
 
         println("UUID: $uuid")
         println("Name: $nameText")

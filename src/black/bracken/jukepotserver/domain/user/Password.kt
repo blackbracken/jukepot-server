@@ -1,20 +1,23 @@
 package black.bracken.jukepotserver.domain.user
 
-@Suppress("DataClassPrivateConstructor")
-data class Password private constructor(val text: String) {
+interface Password {
+    val text: String
 
     companion object {
-        operator fun invoke(text: String): Password? =
-            if (text.isValidPassword()) Password(text) else null
+        fun of(text: String): Password? {
+            val passwordRegex = Regex(
+                "^"
+                        + "(?=.*[A-Z])" // 大文字が含まれなければならない
+                        + "(?=.*[a-z])" // 小文字が含まれなければならない
+                        + "(?=.*[0-9])" // 数字が含まれなければならない
+                        + "[A-Za-z0-9@\\-\\$]" // 許容される文字
+                        + "{8,64}" // 文字数は8..64である
+                        + "$"
+            )
 
-        private fun String.isValidPassword(): Boolean = Regex(
-            "^"
-                    + "(?=.*?[A-Za-z])" // アルファベット1文字以上
-                    + "(?=.*?[0-9])" // 数字1文字以上
-                    + "(?=.*?[#?!@\$%^&*-])" // #?!@$%^&*-を許容
-                    + ".{8,64}" // 文字数: 8..64文字
-                    + "$"
-        ).matches(this)
+            return if (passwordRegex.matches(text)) Concrete(text) else null
+        }
     }
 
+    data class Concrete(override val text: String) : Password
 }

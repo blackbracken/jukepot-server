@@ -1,14 +1,15 @@
 package black.bracken.jukepotserver.domain.user
 
-@Suppress("DataClassPrivateConstructor")
-data class UserName private constructor(val text: String) {
+interface UserName {
+    val text: String
 
     companion object {
-        operator fun invoke(text: String): UserName? =
+        fun of(text: String): UserName? =
             when {
                 text.isEmpty() || text.length > 32 -> null
-                else -> UserName(text)
+                else -> Concrete(text)
             }
     }
 
+    private data class Concrete(override val text: String) : UserName
 }
