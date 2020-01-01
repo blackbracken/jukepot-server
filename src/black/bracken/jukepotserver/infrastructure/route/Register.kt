@@ -2,7 +2,7 @@ package black.bracken.jukepotserver.infrastructure.route
 
 import arrow.core.Either
 import black.bracken.jukepotserver.infrastructure.endpoint.request.RegisterRequest
-import black.bracken.jukepotserver.port.UserController
+import black.bracken.jukepotserver.adapter.controller.UserController
 import io.ktor.application.call
 import io.ktor.response.respondText
 import io.ktor.routing.Route

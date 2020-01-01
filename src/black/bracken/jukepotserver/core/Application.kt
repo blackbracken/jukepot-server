@@ -1,6 +1,6 @@
 package black.bracken.jukepotserver.core
 
-import black.bracken.jukepotserver.database.JukepotDatabase
+import black.bracken.jukepotserver.infrastructure.database.JukepotDatabase
 import black.bracken.jukepotserver.infrastructure.route.register
 import io.ktor.application.Application
 import io.ktor.application.install

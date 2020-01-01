@@ -1,7 +1,7 @@
-package black.bracken.jukepotserver.port
+package black.bracken.jukepotserver.adapter.controller
 
 import arrow.core.Either
-import black.bracken.jukepotserver.domain.UserToken
+import black.bracken.jukepotserver.entity.domain.UserToken
 import black.bracken.jukepotserver.service.user.register.UserRegisterUsecase
 import black.bracken.jukepotserver.util.InvalidResponse
 

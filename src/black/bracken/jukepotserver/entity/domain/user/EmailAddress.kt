@@ -1,4 +1,4 @@
-package black.bracken.jukepotserver.domain.user
+package black.bracken.jukepotserver.entity.domain.user
 
 import org.apache.commons.validator.routines.EmailValidator
 

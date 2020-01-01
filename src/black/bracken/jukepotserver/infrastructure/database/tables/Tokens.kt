@@ -1,4 +1,4 @@
-package black.bracken.jukepotserver.database.tables
+package black.bracken.jukepotserver.infrastructure.database.tables
 
 import org.jetbrains.exposed.dao.EntityID
 import org.jetbrains.exposed.dao.UUIDEntity

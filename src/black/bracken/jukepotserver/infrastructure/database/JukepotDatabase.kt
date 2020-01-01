@@ -1,6 +1,6 @@
-package black.bracken.jukepotserver.database
+package black.bracken.jukepotserver.infrastructure.database
 
-import black.bracken.jukepotserver.database.tables.Users
+import black.bracken.jukepotserver.infrastructure.database.tables.Users
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.transactions.transaction

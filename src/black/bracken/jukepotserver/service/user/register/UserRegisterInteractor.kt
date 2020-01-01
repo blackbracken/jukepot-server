@@ -3,9 +3,9 @@ package black.bracken.jukepotserver.service.user.register
 import arrow.core.Either
 import arrow.core.extensions.fx
 import arrow.core.rightIfNotNull
-import black.bracken.jukepotserver.domain.user.EmailAddress
-import black.bracken.jukepotserver.domain.user.Password
-import black.bracken.jukepotserver.domain.user.UserName
+import black.bracken.jukepotserver.entity.domain.user.EmailAddress
+import black.bracken.jukepotserver.entity.domain.user.Password
+import black.bracken.jukepotserver.entity.domain.user.UserName
 import black.bracken.jukepotserver.util.InvalidResponse
 import java.util.*
 

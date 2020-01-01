@@ -1,6 +1,6 @@
 package black.bracken.jukepotserver.core
 
-import black.bracken.jukepotserver.port.UserController
+import black.bracken.jukepotserver.adapter.controller.UserController
 import black.bracken.jukepotserver.service.user.register.UserRegisterInteractor
 import black.bracken.jukepotserver.service.user.register.UserRegisterUsecase
 import org.koin.dsl.module

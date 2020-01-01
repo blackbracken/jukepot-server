@@ -1,4 +1,4 @@
-package black.bracken.jukepotserver.domain
+package black.bracken.jukepotserver.entity.domain
 
 import java.util.*
 
