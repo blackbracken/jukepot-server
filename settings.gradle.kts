@@ -1,3 +1,3 @@
 rootProject.name = "jukepot-server"
-include 'entity'
 
+include(":legacy")
