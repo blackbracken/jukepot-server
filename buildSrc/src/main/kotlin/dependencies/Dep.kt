@@ -1,7 +1,7 @@
 package dependencies
 
 @Suppress("unused")
-object Dependencies {
+object Dep {
 
     object GradlePlugin : DependencyCategory {
         const val kotlin = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Kotlin.version}"

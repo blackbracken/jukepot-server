@@ -1,18 +1,17 @@
-import dependencies.Dependencies
+import dependencies.Dep
 
 sourceSets {
     main.kotlin.srcDirs = main.java.srcDirs = ['src']
     test.kotlin.srcDirs = test.java.srcDirs = ['test']
     main.resources.srcDirs = ['resources']
-    test.resources.srcDirs = ['testresources']
 }
 
 dependencies {
-    Dependencies.GradlePlugin.implementedSet.forEach { implementation(it) }
-    Dependencies.Kotlin.implementedSet.forEach { implementation(it) }
-    Dependencies.Ktor.implementedSet.forEach { implementation(it) }
-    Dependencies.Exposed.implementedSet.forEach { implementation(it) }
-    Dependencies.Koin.implementedSet.forEach { implementation(it) }
-    Dependencies.Arrow.implementedSet.forEach { implementation(it) }
-    Dependencies.CommonsValidator.implementedSet.forEach { implementation(it) }
+    Dep.GradlePlugin.implementedSet.forEach { implementation(it) }
+    Dep.Kotlin.implementedSet.forEach { implementation(it) }
+    Dep.Ktor.implementedSet.forEach { implementation(it) }
+    Dep.Exposed.implementedSet.forEach { implementation(it) }
+    Dep.Koin.implementedSet.forEach { implementation(it) }
+    Dep.Arrow.implementedSet.forEach { implementation(it) }
+    Dep.CommonsValidator.implementedSet.forEach { implementation(it) }
 }
