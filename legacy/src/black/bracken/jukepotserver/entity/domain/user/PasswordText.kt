@@ -1,10 +1,10 @@
 package black.bracken.jukepotserver.entity.domain.user
 
-interface Password {
+interface PasswordText {
     val text: String
 
     companion object {
-        fun of(text: String): Password? {
+        operator fun invoke(text: String): PasswordText? {
             val passwordRegex = Regex(
                 "^"
                         + "(?=.*[A-Z])" // 大文字が含まれなければならない
@@ -19,5 +19,5 @@ interface Password {
         }
     }
 
-    data class Concrete(override val text: String) : Password
+    private data class Concrete(override val text: String) : PasswordText
 }

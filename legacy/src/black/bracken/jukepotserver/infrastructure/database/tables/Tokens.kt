@@ -15,7 +15,7 @@ object Tokens : UUIDTable("tokens") {
 class Token(uuid: EntityID<UUID>) : UUIDEntity(uuid) {
     companion object : UUIDEntityClass<Token>(Tokens)
 
-    val token by Tokens.token
-    val user by Tokens.user
-    val createdAt by Tokens.createdAt
+    var token by Tokens.token
+    var user by Tokens.user
+    var createdAt by Tokens.createdAt
 }

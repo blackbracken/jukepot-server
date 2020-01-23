@@ -6,7 +6,7 @@ interface EmailAddress {
     val text: String
 
     companion object {
-        fun of(text: String): EmailAddress? =
+        operator fun invoke(text: String): EmailAddress? =
             if (EmailValidator.getInstance(true).isValid(text)) Concrete(text) else null
     }
 
