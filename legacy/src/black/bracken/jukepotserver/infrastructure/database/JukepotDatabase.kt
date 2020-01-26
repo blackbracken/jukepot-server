@@ -10,17 +10,19 @@ import java.sql.SQLException
 import java.util.*
 
 object JukepotDatabase {
-    private const val TRIALS = 2 * 60
+    private const val TRIALS = 5
 
     fun initialize(host: String, database: String, user: String, password: String) {
         val url = "jdbc:mariadb://$host/$database"
 
         fun getConnectionOrNull(): Connection? =
             try {
-                DriverManager.getConnection(url, Properties().apply {
+                val properties = Properties().apply {
                     put("user", user)
                     put("password", password)
-                })
+                }
+
+                DriverManager.getConnection(url, properties)
             } catch (ignored: SQLException) {
                 null
             }

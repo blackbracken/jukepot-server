@@ -20,10 +20,14 @@ fun main() = EngineMain.main(arrayOf())
 @KtorExperimentalAPI
 fun Application.module() {
     with(environment.config) {
-        val dbHost = propertyOrNull("$ENV_DATABASE.host")?.getString() ?: "localhost"
-        val dbDatabase = propertyOrNull("$ENV_DATABASE.database")?.getString() ?: "jukepot"
-        val dbUser = property("$ENV_DATABASE.user").getString()
-        val dbPassword = property("$ENV_DATABASE.password").getString()
+        val dbHost = propertyOrNull("$ENV_DATABASE.host")?.getString()
+            ?: throw IllegalStateException("DB_HOST must be set!")
+        val dbDatabase = propertyOrNull("$ENV_DATABASE.database")?.getString()
+            ?: throw IllegalStateException("DB_DATABASE must be set!")
+        val dbUser = propertyOrNull("$ENV_DATABASE.user")?.getString()
+            ?: throw IllegalStateException("DB_USER must be set!")
+        val dbPassword = propertyOrNull("$ENV_DATABASE.password")?.getString()
+            ?: throw IllegalStateException("DB_PASSWORD must be set!")
 
         JukepotDatabase.initialize(dbHost, dbDatabase, dbUser, dbPassword)
     }
