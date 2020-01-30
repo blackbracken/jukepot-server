@@ -9,7 +9,7 @@ import java.util.*
 object Users : UUIDTable("users") {
     val email = varchar("email", 64).uniqueIndex()
     val hashedPassword = varchar("hashed_password", 64)
-    val passwordSalt = varchar("password_salt", 32)
+    val passwordSalt = varchar("password_salt", 64)
     val name = varchar("name", 64)
     val registeredAt = datetime("registered_at")
 }

@@ -41,11 +41,13 @@ class UserRegisterInteractor(private val userRepository: UserRepository) : UserR
         val keyLength = 256
 
         val keyFactory = SecretKeyFactory.getInstance(algorithm)
-        val salt = Array<Byte>(32) { 0 }.apply { SecureRandom().nextBytes(toByteArray()) }
-        val keySpec = PBEKeySpec(this.toCharArray(), salt.toByteArray(), stretchingCount, keyLength)
+        val salt = Array<Byte>(32) { 0 }.toByteArray().apply {
+            SecureRandom().nextBytes(this)
+        }
+        val keySpec = PBEKeySpec(this.toCharArray(), salt, stretchingCount, keyLength)
         val secretKey = keyFactory.generateSecret(keySpec)
 
-        println(salt.joinToString { "," })
+        println(salt.joinToString(separator = ", "))
 
         return secretKey.encoded.toText()
             .let { hashedPassword -> hashedPassword to salt.toText() }

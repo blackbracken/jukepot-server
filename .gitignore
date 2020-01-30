@@ -1,9 +1,11 @@
 .gradle
 .idea
 out
-build
+build/
 *.iml
 *.ipr
 *.iws
+
+**/*/build/
 
 # .env
