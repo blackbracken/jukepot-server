@@ -47,8 +47,6 @@ class UserRegisterInteractor(private val userRepository: UserRepository) : UserR
         val keySpec = PBEKeySpec(this.toCharArray(), salt, stretchingCount, keyLength)
         val secretKey = keyFactory.generateSecret(keySpec)
 
-        println(salt.joinToString(separator = ", "))
-
         return secretKey.encoded.toText()
             .let { hashedPassword -> hashedPassword to salt.toText() }
     }

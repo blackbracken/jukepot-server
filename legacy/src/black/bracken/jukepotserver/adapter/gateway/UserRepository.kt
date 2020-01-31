@@ -47,7 +47,7 @@ class MariaUserRepository : UserRepository {
     ): JukepotUser? =
         transaction {
             User.new {
-                this.email = email.toString()
+                this.email = email.text
                 this.hashedPassword = hashedPassword
                 this.passwordSalt = passwordSalt
                 this.name = name.text
