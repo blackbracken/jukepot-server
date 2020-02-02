@@ -1,11 +1,5 @@
 import dependencies.Dep
 
-sourceSets {
-    main.kotlin.srcDirs = main.java.srcDirs = ['src']
-    test.kotlin.srcDirs = test.java.srcDirs = ['test']
-    main.resources.srcDirs = ['resources']
-}
-
 dependencies {
     Dep.GradlePlugin.implementedSet.forEach { implementation(it) }
     Dep.Kotlin.implementedSet.forEach { implementation(it) }

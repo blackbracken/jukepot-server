@@ -48,4 +48,5 @@ allprojects {
 
 dependencies {
     implementation project(":legacy")
+    implementation project(":app")
 }

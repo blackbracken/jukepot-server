@@ -1,4 +1,4 @@
-package black.bracken.jukepotserver.core
+package black.bracken.jukepotserver
 
 import black.bracken.jukepotserver.infrastructure.database.JukepotDatabase
 import black.bracken.jukepotserver.infrastructure.route.register
