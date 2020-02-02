@@ -1,9 +1,9 @@
 package black.bracken.jukepotserver.adapter.gateway
 
-import black.bracken.jukepotserver.entity.domain.user.AuthenticationHash
-import black.bracken.jukepotserver.entity.domain.user.EmailAddress
-import black.bracken.jukepotserver.entity.domain.user.JukepotUser
-import black.bracken.jukepotserver.entity.domain.user.UserName
+import black.bracken.jukepotserver.entity.AuthenticationHash
+import black.bracken.jukepotserver.entity.EmailAddress
+import black.bracken.jukepotserver.entity.JukepotUser
+import black.bracken.jukepotserver.entity.UserName
 import black.bracken.jukepotserver.infrastructure.database.tables.User
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.joda.time.LocalDateTime

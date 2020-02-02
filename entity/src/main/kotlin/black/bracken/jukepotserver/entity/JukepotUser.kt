@@ -1,4 +1,4 @@
-package black.bracken.jukepotserver.entity.domain.user
+package black.bracken.jukepotserver.entity
 
 import org.joda.time.LocalDateTime
 import java.util.*

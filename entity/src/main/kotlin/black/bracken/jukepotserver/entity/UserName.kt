@@ -1,4 +1,4 @@
-package black.bracken.jukepotserver.entity.domain.user
+package black.bracken.jukepotserver.entity
 
 interface UserName {
     val text: String

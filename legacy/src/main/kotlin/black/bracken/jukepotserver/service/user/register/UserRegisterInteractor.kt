@@ -4,9 +4,9 @@ import arrow.core.Either
 import arrow.core.extensions.fx
 import arrow.core.rightIfNotNull
 import black.bracken.jukepotserver.adapter.gateway.UserRepository
-import black.bracken.jukepotserver.entity.domain.user.EmailAddress
-import black.bracken.jukepotserver.entity.domain.user.PasswordText
-import black.bracken.jukepotserver.entity.domain.user.UserName
+import black.bracken.jukepotserver.entity.EmailAddress
+import black.bracken.jukepotserver.entity.PasswordText
+import black.bracken.jukepotserver.entity.UserName
 import black.bracken.jukepotserver.ext.toText
 import black.bracken.jukepotserver.util.InvalidResponse
 import org.joda.time.LocalDateTime
