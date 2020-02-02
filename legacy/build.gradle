@@ -8,4 +8,6 @@ dependencies {
     Dep.Koin.implementedSet.forEach { implementation(it) }
     Dep.Arrow.implementedSet.forEach { implementation(it) }
     Dep.CommonsValidator.implementedSet.forEach { implementation(it) }
+
+    implementation(project(":commonLib"))
 }
