@@ -5,30 +5,5 @@
 2. `docker-compose build`
 3. `docker-compose up -d`
 
-## Architecture
-```
-// TODO: add database
-
-  +--------+
-  | domain |
-  +---^----+
-      |
- use  |
-      |         impl
-+-----+------+        +---------+        inject
-| interactor +--------> usecase <-------+
-+------------+        +----^----+       |
-                           |            |     +--------------+
-                      use  |            +-----+ DI container |
-                           |            |     +--------------+
-                     +-----+------+     |
-                     | controller <-----+
-                     +-----^------+
-                           |
-                      use  |
-                           |
-                       +---+---+
-                       | route |
-                       +-------+
-
-```
+## Development
+This project is Multi-module project, adopts (like) Clean Architecture.
