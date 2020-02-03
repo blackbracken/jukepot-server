@@ -7,4 +7,6 @@ dependencies {
     Dep.Koin.implementedSet.forEach { implementation(it) }
 
     implementation(project(":legacy"))
+    implementation(project(":entity"))
+    implementation(project(":usecase:register"))
 }

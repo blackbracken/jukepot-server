@@ -3,8 +3,7 @@ package black.bracken.jukepotserver
 import black.bracken.jukepotserver.adapter.controller.UserController
 import black.bracken.jukepotserver.adapter.gateway.MariaUserRepository
 import black.bracken.jukepotserver.adapter.gateway.UserRepository
-import black.bracken.jukepotserver.service.user.register.UserRegisterInteractor
-import black.bracken.jukepotserver.service.user.register.UserRegisterUsecase
+import black.bracken.jukepotserver.usecase.RegisterUser
 import org.koin.dsl.module
 import org.koin.experimental.builder.single
 import org.koin.experimental.builder.singleBy
@@ -14,7 +13,7 @@ internal val appModule = module(createdAtStart = true) {
     single<UserController>()
 
     // Features
-    singleBy<UserRegisterUsecase, UserRegisterInteractor>()
+    single<RegisterUser>()
 
     // Infrastructure
     singleBy<UserRepository, MariaUserRepository>()

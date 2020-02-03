@@ -1,4 +1,4 @@
-package black.bracken.jukepotserver.service
+package black.bracken.jukepotserver
 
 /**
  * Represents Usecase.
@@ -6,7 +6,7 @@ package black.bracken.jukepotserver.service
  * @param I InputTransferObject
  * @param O OutputTransferObject
  */
-interface Usecase<in I, out O> {
+interface UseCase<in I, out O> {
 
     operator fun invoke(inputTransferObject: I): O
 

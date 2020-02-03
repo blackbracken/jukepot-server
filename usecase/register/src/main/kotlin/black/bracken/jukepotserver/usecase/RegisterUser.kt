@@ -1,23 +1,28 @@
-package black.bracken.jukepotserver.service.user.register
+package black.bracken.jukepotserver.usecase
 
 import arrow.core.Either
 import arrow.core.extensions.fx
 import arrow.core.rightIfNotNull
-import black.bracken.jukepotserver.adapter.gateway.UserRepository
+import black.bracken.jukepotserver.InvalidResponse
+import black.bracken.jukepotserver.UseCase
 import black.bracken.jukepotserver.entity.EmailAddress
 import black.bracken.jukepotserver.entity.PasswordText
 import black.bracken.jukepotserver.entity.UserName
+import black.bracken.jukepotserver.entity.repository.UserRepository
 import black.bracken.jukepotserver.ext.toText
-import black.bracken.jukepotserver.util.InvalidResponse
 import org.joda.time.LocalDateTime
 import java.security.SecureRandom
 import java.util.*
 import javax.crypto.SecretKeyFactory
 import javax.crypto.spec.PBEKeySpec
 
-class UserRegisterInteractor(private val userRepository: UserRepository) : UserRegisterUsecase {
+class RegisterUser(
+    private val userRepository: UserRepository
+) : UseCase<RegisterUser.Input, Either<InvalidResponse, UUID>> {
 
-    override fun invoke(inputTransferObject: UserRegisterUsecase.Input): Either<InvalidResponse, UUID> =
+    data class Input(val email: String, val password: String, val userName: String)
+
+    override fun invoke(inputTransferObject: Input): Either<InvalidResponse, UUID> =
         Either.fx {
             val (email) = EmailAddress(inputTransferObject.email)
                 .rightIfNotNull { InvalidResponse("Address is invalid!") }

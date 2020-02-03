@@ -15,6 +15,8 @@
             <option value="$PROJECT_DIR$/commonLib" />
             <option value="$PROJECT_DIR$/entity" />
             <option value="$PROJECT_DIR$/legacy" />
+            <option value="$PROJECT_DIR$/usecase" />
+            <option value="$PROJECT_DIR$/usecase/register" />
           </set>
         </option>
         <option name="useAutoImport" value="true" />

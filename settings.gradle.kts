@@ -1,6 +1,9 @@
 rootProject.name = "jukepot-server"
 
-include(":app")
-include(":commonLib")
-include(":legacy")
-include("entity")
+include(
+    ":app",
+    ":commonLib",
+    ":legacy",
+    ":entity",
+    ":usecase:register"
+)

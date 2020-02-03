@@ -9,6 +9,7 @@ dependencies {
     Dep.Arrow.implementedSet.forEach { implementation(it) }
     Dep.CommonsValidator.implementedSet.forEach { implementation(it) }
 
-    implementation(project(":entity"))
     implementation(project(":commonLib"))
+    implementation(project(":entity"))
+    implementation(project(":usecase:register"))
 }
