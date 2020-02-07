@@ -1,7 +1,7 @@
 package black.bracken.jukepotserver
 
 /**
- * Represents Usecase.
+ * Represents UseCase.
  *
  * @param I InputTransferObject
  * @param O OutputTransferObject

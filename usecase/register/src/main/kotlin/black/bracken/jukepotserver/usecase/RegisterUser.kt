@@ -3,7 +3,7 @@ package black.bracken.jukepotserver.usecase
 import arrow.core.Either
 import arrow.core.extensions.fx
 import arrow.core.rightIfNotNull
-import black.bracken.jukepotserver.InvalidResponse
+import black.bracken.jukepotserver.ErrorResponse
 import black.bracken.jukepotserver.UseCase
 import black.bracken.jukepotserver.entity.EmailAddress
 import black.bracken.jukepotserver.entity.PasswordText
@@ -18,23 +18,23 @@ import javax.crypto.spec.PBEKeySpec
 
 class RegisterUser(
     private val userRepository: UserRepository
-) : UseCase<RegisterUser.Input, Either<InvalidResponse, UUID>> {
+) : UseCase<RegisterUser.Input, Either<ErrorResponse, UUID>> {
 
     data class Input(val email: String, val password: String, val userName: String)
 
-    override fun invoke(inputTransferObject: Input): Either<InvalidResponse, UUID> =
+    override fun invoke(inputTransferObject: Input): Either<ErrorResponse, UUID> =
         Either.fx {
             val (email) = EmailAddress(inputTransferObject.email)
-                .rightIfNotNull { InvalidResponse("Address is invalid!") }
+                .rightIfNotNull { ErrorResponse("Address is invalid!") }
             val (password) = PasswordText(inputTransferObject.password)
-                .rightIfNotNull { InvalidResponse("Password is invalid!") }
+                .rightIfNotNull { ErrorResponse("Password is invalid!") }
             val (name) = UserName(inputTransferObject.userName)
-                .rightIfNotNull { InvalidResponse("UserName is invalid!") }
+                .rightIfNotNull { ErrorResponse("UserName is invalid!") }
 
             val (hashedPassword, salt) = password.text.hash()
 
             val (registeredUser) = userRepository.registerUser(email, hashedPassword, salt, name, LocalDateTime.now())
-                .rightIfNotNull { InvalidResponse("Something happened!") }
+                .rightIfNotNull { ErrorResponse("Something happened!") }
 
             registeredUser.uuid
         }

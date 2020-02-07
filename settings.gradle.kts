@@ -7,3 +7,5 @@ include(
     ":entity",
     ":usecase:register"
 )
+include("infrastructure:database")
+findProject(":infrastructure:database")?.name = "database"

@@ -14,6 +14,8 @@
             <option value="$PROJECT_DIR$/buildSrc" />
             <option value="$PROJECT_DIR$/commonLib" />
             <option value="$PROJECT_DIR$/entity" />
+            <option value="$PROJECT_DIR$/infrastructure" />
+            <option value="$PROJECT_DIR$/infrastructure/database" />
             <option value="$PROJECT_DIR$/legacy" />
             <option value="$PROJECT_DIR$/usecase" />
             <option value="$PROJECT_DIR$/usecase/register" />

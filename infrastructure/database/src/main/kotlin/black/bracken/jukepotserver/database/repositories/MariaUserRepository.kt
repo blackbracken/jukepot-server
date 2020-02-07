@@ -1,27 +1,14 @@
-package black.bracken.jukepotserver.adapter.gateway
+package black.bracken.jukepotserver.database.repositories
 
+import black.bracken.jukepotserver.database.tables.User
 import black.bracken.jukepotserver.entity.AuthenticationHash
 import black.bracken.jukepotserver.entity.EmailAddress
 import black.bracken.jukepotserver.entity.JukepotUser
 import black.bracken.jukepotserver.entity.UserName
-import black.bracken.jukepotserver.infrastructure.database.tables.User
+import black.bracken.jukepotserver.entity.repository.UserRepository
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.joda.time.LocalDateTime
 import java.util.*
-
-interface UserRepository {
-
-    fun findUserById(uuid: UUID): JukepotUser?
-
-    fun registerUser(
-        email: EmailAddress,
-        hashedPassword: String,
-        passwordSalt: String,
-        name: UserName,
-        registeredAt: LocalDateTime
-    ): JukepotUser?
-
-}
 
 class MariaUserRepository : UserRepository {
 

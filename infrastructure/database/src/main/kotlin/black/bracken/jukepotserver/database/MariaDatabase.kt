@@ -1,6 +1,6 @@
-package black.bracken.jukepotserver.infrastructure.database
+package black.bracken.jukepotserver.database
 
-import black.bracken.jukepotserver.infrastructure.database.tables.Users
+import black.bracken.jukepotserver.database.tables.Users
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.transactions.transaction
@@ -9,7 +9,7 @@ import java.sql.DriverManager
 import java.sql.SQLException
 import java.util.*
 
-object JukepotDatabase {
+object MariaDatabase {
     private const val TRIALS = 5
 
     fun initialize(host: String, database: String, user: String, password: String) {

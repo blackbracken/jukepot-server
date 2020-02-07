@@ -1,6 +1,6 @@
 package black.bracken.jukepotserver
 
-import black.bracken.jukepotserver.infrastructure.database.JukepotDatabase
+import black.bracken.jukepotserver.database.MariaDatabase
 import black.bracken.jukepotserver.infrastructure.route.register
 import io.ktor.application.Application
 import io.ktor.application.install
@@ -29,7 +29,7 @@ fun Application.module() {
         val dbPassword = propertyOrNull("$ENV_DATABASE.password")?.getString()
             ?: throw IllegalStateException("DB_PASSWORD must be set!")
 
-        JukepotDatabase.initialize(dbHost, dbDatabase, dbUser, dbPassword)
+        MariaDatabase.initialize(dbHost, dbDatabase, dbUser, dbPassword)
     }
 
     embeddedServer(Netty) {
@@ -42,6 +42,7 @@ fun Application.module() {
             install(Koin) {
                 modules(appModule)
             }
+            // TODO: install StatusPages to catch unhandled exceptions
 
             register()
         }
