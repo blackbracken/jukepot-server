@@ -16,7 +16,6 @@
             <option value="$PROJECT_DIR$/entity" />
             <option value="$PROJECT_DIR$/infrastructure" />
             <option value="$PROJECT_DIR$/infrastructure/database" />
-            <option value="$PROJECT_DIR$/legacy" />
             <option value="$PROJECT_DIR$/presentation" />
             <option value="$PROJECT_DIR$/usecase" />
           </set>

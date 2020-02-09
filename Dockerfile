@@ -1,7 +1,7 @@
 FROM openjdk:8-jre-alpine
 
 # TODO: fetch jar from GitHub
-COPY ./build/libs/jukepot-server.jar /app/jukepot-server.jar
+COPY ./build/libs/jukepot-server-runnable.jar /app/jukepot-server.jar
 
 WORKDIR /app
 
