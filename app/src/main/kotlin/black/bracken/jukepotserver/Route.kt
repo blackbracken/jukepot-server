@@ -1,15 +1,27 @@
 package black.bracken.jukepotserver
 
-import black.bracken.jukepotserver.adapter.controller.UserController
-import black.bracken.jukepotserver.infrastructure.endpoint.request.RegisterRequest
+import arrow.core.Either
+import black.bracken.jukepotserver.presentation.UserPresentation
+import io.ktor.application.call
+import io.ktor.response.respondText
 import io.ktor.routing.Route
 import io.ktor.routing.post
 import org.koin.ktor.ext.inject
 
 internal fun Route.user() {
-    val userController by inject<UserController>()
+    val presentation by inject<UserPresentation>()
 
     post<RegisterRequest>("/register") { request ->
-        userController.register(userName = request.name, email = request.email, password = request.password)
+        when (val result = presentation.register(request.name, request.email, request.password)) {
+            is Either.Right -> call.respondText(result.b)
+            is Either.Left -> call.respondText(result.a.message)
+        }
     }
 }
+
+// TODO: move to better
+data class RegisterRequest(
+    val name: String,
+    val email: String,
+    val password: String
+)

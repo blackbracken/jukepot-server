@@ -17,8 +17,8 @@
             <option value="$PROJECT_DIR$/infrastructure" />
             <option value="$PROJECT_DIR$/infrastructure/database" />
             <option value="$PROJECT_DIR$/legacy" />
+            <option value="$PROJECT_DIR$/presentation" />
             <option value="$PROJECT_DIR$/usecase" />
-            <option value="$PROJECT_DIR$/usecase/register" />
           </set>
         </option>
         <option name="useAutoImport" value="true" />

@@ -1,7 +1,6 @@
 package black.bracken.jukepotserver
 
 import black.bracken.jukepotserver.database.MariaDatabase
-import black.bracken.jukepotserver.infrastructure.route.register
 import io.ktor.application.Application
 import io.ktor.application.install
 import io.ktor.features.ContentNegotiation
@@ -44,7 +43,7 @@ fun Application.module() {
             }
             // TODO: install StatusPages to catch unhandled exceptions
 
-            register()
+            user()
         }
     }.start(wait = true)
 }
