@@ -5,7 +5,7 @@ object Dep {
 
     object GradlePlugin : DependencyCategory {
         const val kotlin = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Kotlin.version}"
-        const val shadow = "com.github.jengelman.gradle.plugins:shadow:2.0.4"
+        const val shadow = "com.github.jengelman.gradle.plugins:shadow:5.2.0"
 
         override val implementedSet = setOf(shadow)
     }
