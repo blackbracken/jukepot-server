@@ -1,9 +1,11 @@
 package black.bracken.jukepotserver.usecase
 
 import arrow.core.Either
-import arrow.core.extensions.fx
-import arrow.core.rightIfNotNull
+import arrow.core.left
+import arrow.core.right
 import black.bracken.jukepotserver.ErrorResponse
+import black.bracken.jukepotserver.InternalError
+import black.bracken.jukepotserver.InvalidParameter
 import black.bracken.jukepotserver.UseCase
 import black.bracken.jukepotserver.entity.EmailAddress
 import black.bracken.jukepotserver.entity.PasswordText
@@ -22,22 +24,22 @@ class RegisterUser(
 
     data class Input(val email: String, val password: String, val userName: String)
 
-    override fun invoke(inputTransferObject: Input): Either<ErrorResponse, UUID> =
-        Either.fx {
-            val (email) = EmailAddress(inputTransferObject.email)
-                .rightIfNotNull { ErrorResponse("Address is invalid!") }
-            val (password) = PasswordText(inputTransferObject.password)
-                .rightIfNotNull { ErrorResponse("Password is invalid!") }
-            val (name) = UserName(inputTransferObject.userName)
-                .rightIfNotNull { ErrorResponse("UserName is invalid!") }
+    override fun invoke(inputTransferObject: Input): Either<ErrorResponse, UUID> {
+        val email = EmailAddress(inputTransferObject.email)
+            ?: return InvalidParameter("Address").left()
 
-            val (hashedPassword, salt) = password.text.hash()
+        val password = PasswordText(inputTransferObject.password)
+            ?: return InvalidParameter("Password").left()
 
-            val (registeredUser) = userRepository.registerUser(email, hashedPassword, salt, name, LocalDateTime.now())
-                .rightIfNotNull { ErrorResponse("Something happened!") }
+        val name = UserName(inputTransferObject.userName)
+            ?: return InvalidParameter("UserName").left()
 
-            registeredUser.uuid
-        }
+        val (hashedPassword, salt) = password.text.hash()
+        val registeredUser = userRepository.registerUser(email, hashedPassword, salt, name, LocalDateTime.now())
+            ?: return InternalError().left()
+
+        return registeredUser.uuid.right()
+    }
 
     // TODO: type return value
     private fun String.hash(): Pair<String, String> {
