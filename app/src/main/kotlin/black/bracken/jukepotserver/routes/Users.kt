@@ -1,4 +1,4 @@
-package black.bracken.jukepotserver
+package black.bracken.jukepotserver.routes
 
 import arrow.core.Either
 import black.bracken.jukepotserver.ext.toJsonItem
@@ -10,13 +10,15 @@ import io.ktor.routing.Route
 import io.ktor.routing.post
 import org.koin.ktor.ext.inject
 
-internal fun Route.user() {
+private const val ROOT = "/users"
+
+internal fun Route.users() {
     val presentation by inject<UserPresentation>()
 
-    post<RegisterRequest>("/users/new") { request ->
+    post<NewRequest>("$ROOT/new") { request ->
         when (val result = presentation.register(request.name, request.email, request.password)) {
             is Either.Right -> {
-                call.respond(HttpStatusCode.OK, RegisterResponse(result.b))
+                call.respond(HttpStatusCode.OK, NewResponse(result.b))
             }
             is Either.Left -> {
                 val errorResponse = result.a
@@ -26,13 +28,12 @@ internal fun Route.user() {
     }
 }
 
-private data class RegisterRequest(
+private data class NewRequest(
     val name: String,
     val email: String,
     val password: String
 )
 
-private data class RegisterResponse(
+private data class NewResponse(
     val uuid: String
-    // TODO: embrace token
 )
