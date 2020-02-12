@@ -13,7 +13,7 @@ import org.koin.ktor.ext.inject
 internal fun Route.user() {
     val presentation by inject<UserPresentation>()
 
-    post<RegisterRequest>("/register") { request ->
+    post<RegisterRequest>("/users/new") { request ->
         when (val result = presentation.register(request.name, request.email, request.password)) {
             is Either.Right -> {
                 call.respond(HttpStatusCode.OK, RegisterResponse(result.b))

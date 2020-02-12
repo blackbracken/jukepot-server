@@ -2,6 +2,9 @@
 
 ## Development
 
+#### requests
+Look at [here](https://github.com/blackbracken/jukepot-server/blob/master/app/src/main/kotlin/black/bracken/jukepotserver/Route.kt).
+
 #### module layers
 This project adopts multi-module with simplified Clean Architecture.
 
