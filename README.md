@@ -26,6 +26,11 @@ Requests & responses to/from this are represented a json on REST API mainly.
 Response HTTP status code is 200 if succeed otherwise 401 or 403.
 ```json
 {
+  "token":"0ab1f1d2-d296-48c3-aa59-8ca6da6958d2"
+}
+```
+```json
+{
   "reason": "Request parameter didn't validate."
 }
 ```
