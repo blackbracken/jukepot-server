@@ -18,14 +18,21 @@ object Dep {
         override val implementedSet = setOf(stdlib)
     }
 
+    object KotlinX : DependencyCategory {
+        const val serialization = "org.jetbrains.kotlinx:kotlinx-serialization-runtime:0.14.0"
+
+        override val implementedSet = setOf<String>()
+    }
+
     object Ktor : DependencyCategory {
-        const val version = "1.2.6"
+        const val version = "1.3.1"
 
         const val serverCore = "io.ktor:ktor-server-core:$version"
         const val serverNetty = "io.ktor:ktor-server-netty:$version"
         const val serverHostCommon = "io.ktor:ktor-server-host-common:$version"
         const val auth = "io.ktor:ktor-auth:$version"
-        const val gson = "io.ktor:ktor-gson:$version"
+
+        const val serialization = "io.ktor:ktor-serialization:$version"
 
         const val serverTests = "io.ktor:ktor-server-tests:$version"
 
@@ -36,7 +43,7 @@ object Dep {
             serverNetty,
             serverHostCommon,
             auth,
-            gson,
+            serialization,
             logbackClassic
         )
     }

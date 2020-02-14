@@ -5,8 +5,9 @@ import black.bracken.jukepotserver.routes.users
 import io.ktor.application.Application
 import io.ktor.application.install
 import io.ktor.features.ContentNegotiation
-import io.ktor.gson.gson
+import io.ktor.http.ContentType
 import io.ktor.routing.routing
+import io.ktor.serialization.SerializationConverter
 import io.ktor.server.engine.embeddedServer
 import io.ktor.server.netty.EngineMain
 import io.ktor.server.netty.Netty
@@ -34,13 +35,11 @@ fun Application.module() {
 
     embeddedServer(Netty) {
         routing {
-            install(ContentNegotiation) {
-                gson {
-                    setPrettyPrinting()
-                }
-            }
             install(Koin) {
                 modules(appModule)
+            }
+            install(ContentNegotiation) {
+                register(ContentType.Application.Json, SerializationConverter())
             }
 
             users()
