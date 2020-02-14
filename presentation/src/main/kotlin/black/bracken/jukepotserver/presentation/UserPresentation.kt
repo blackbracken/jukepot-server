@@ -7,15 +7,9 @@ import black.bracken.jukepotserver.usecase.RegisterUser
 class UserPresentation(val registerUseCase: RegisterUser) {
 
     fun register(userName: String, email: String, password: String): Either<ErrorResponse, String> {
-        val registerResult = registerUseCase(RegisterUser.Input(email, password, userName))
+        val tokenOrError = registerUseCase(RegisterUser.Input(email, password, userName))
 
-        return registerResult.map { uuid -> uuid.toString() }
+        return tokenOrError.map { userToken -> userToken.uuid.toString() }
     }
-
-    data class RegisterRequest(
-        val name: String,
-        val email: String,
-        val password: String
-    )
 
 }

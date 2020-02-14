@@ -7,6 +7,7 @@ import io.ktor.application.call
 import io.ktor.response.respond
 import io.ktor.routing.Route
 import io.ktor.routing.post
+import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.json
 import org.koin.ktor.ext.inject
 
@@ -19,7 +20,7 @@ internal fun Route.users() {
         when (val result = presentation.register(request.name, request.email, request.password)) {
             is Either.Right -> {
                 call.respond(json {
-                    "uuid" to result.b
+                    "token" to result.b
                 })
             }
             is Either.Left -> {
@@ -30,6 +31,7 @@ internal fun Route.users() {
     }
 }
 
+@Serializable
 private data class RegisterRequest(
     val name: String,
     val email: String,

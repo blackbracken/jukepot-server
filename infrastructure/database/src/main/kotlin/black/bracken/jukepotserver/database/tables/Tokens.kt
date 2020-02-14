@@ -6,8 +6,7 @@ import org.jetbrains.exposed.dao.UUIDEntityClass
 import org.jetbrains.exposed.dao.UUIDTable
 import java.util.*
 
-object Tokens : UUIDTable("tokens") {
-    val token = varchar("token", 96).uniqueIndex()
+object Tokens : UUIDTable(name = "tokens", columnName = "token") {
     val user = reference("user", Users)
     val createdAt = datetime("created_at")
 }
@@ -15,7 +14,7 @@ object Tokens : UUIDTable("tokens") {
 class Token(uuid: EntityID<UUID>) : UUIDEntity(uuid) {
     companion object : UUIDEntityClass<Token>(Tokens)
 
-    var token by Tokens.token
-    var user by Tokens.user
+    val uuid = uuid.value
+    var user by User referencedOn Tokens.user
     var createdAt by Tokens.createdAt
 }

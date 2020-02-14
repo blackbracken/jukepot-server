@@ -1,6 +1,8 @@
 package black.bracken.jukepotserver
 
+import black.bracken.jukepotserver.database.repositories.MariaTokenRepository
 import black.bracken.jukepotserver.database.repositories.MariaUserRepository
+import black.bracken.jukepotserver.entity.repository.TokenRepository
 import black.bracken.jukepotserver.entity.repository.UserRepository
 import black.bracken.jukepotserver.presentation.UserPresentation
 import black.bracken.jukepotserver.usecase.RegisterUser
@@ -17,4 +19,5 @@ internal val appModule = module(createdAtStart = true) {
 
     // Infrastructure
     singleBy<UserRepository, MariaUserRepository>()
+    singleBy<TokenRepository, MariaTokenRepository>()
 }

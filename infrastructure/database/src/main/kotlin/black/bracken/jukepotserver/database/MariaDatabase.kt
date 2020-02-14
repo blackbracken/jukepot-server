@@ -1,5 +1,6 @@
 package black.bracken.jukepotserver.database
 
+import black.bracken.jukepotserver.database.tables.Tokens
 import black.bracken.jukepotserver.database.tables.Users
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
@@ -23,7 +24,7 @@ object MariaDatabase {
                 }
 
                 DriverManager.getConnection(url, properties)
-            } catch (ignored: SQLException) {
+            } catch (ex: SQLException) {
                 null
             }
 
@@ -38,7 +39,8 @@ object MariaDatabase {
         })
 
         transaction {
-            SchemaUtils.create(Users)
+            SchemaUtils.create(Users, Tokens)
+
         }
     }
 

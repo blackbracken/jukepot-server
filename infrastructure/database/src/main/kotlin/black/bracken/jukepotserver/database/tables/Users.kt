@@ -17,6 +17,7 @@ object Users : UUIDTable("users") {
 class User(id: EntityID<UUID>) : UUIDEntity(id) {
     companion object : UUIDEntityClass<User>(Users)
 
+    val uuid = id.value
     var email by Users.email
     var hashedPassword by Users.hashedPassword
     var passwordSalt by Users.passwordSalt

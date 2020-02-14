@@ -6,14 +6,11 @@ import black.bracken.jukepotserver.entity.EmailAddress
 import black.bracken.jukepotserver.entity.JukepotUser
 import black.bracken.jukepotserver.entity.UserName
 import black.bracken.jukepotserver.entity.repository.UserRepository
+import black.bracken.jukepotserver.ext.JavaDateTime
+import black.bracken.jukepotserver.ext.toJavaDateTime
+import black.bracken.jukepotserver.ext.toJodaDateTime
 import org.jetbrains.exposed.sql.transactions.transaction
-import org.joda.time.DateTime
-import org.joda.time.DateTimeZone
-import java.time.ZoneId
 import java.util.*
-
-private typealias JodaDateTime = DateTime
-private typealias JavaDateTime = java.time.ZonedDateTime
 
 class MariaUserRepository : UserRepository {
 
@@ -48,7 +45,7 @@ class MariaUserRepository : UserRepository {
         }
 
     private fun User.toJukepotUser(): JukepotUser? {
-        val uuid = id.value
+        val uuid = uuid
         val email = EmailAddress(email) ?: return null
         val authenticationHash = AuthenticationHash(hashedPassword, passwordSalt)
         val name = UserName(name) ?: return null
@@ -56,24 +53,5 @@ class MariaUserRepository : UserRepository {
 
         return JukepotUser(uuid, email, authenticationHash, name, registeredAt.toJavaDateTime())
     }
-
-    private fun JodaDateTime.toJavaDateTime(): JavaDateTime =
-        run {
-            JavaDateTime.of(
-                year,
-                monthOfYear,
-                dayOfMonth,
-                hourOfDay,
-                minuteOfHour,
-                secondOfMinute,
-                0,
-                ZoneId.systemDefault()
-            )
-        }
-
-    private fun JavaDateTime.toJodaDateTime(): JodaDateTime =
-        run {
-            JodaDateTime(year, monthValue, dayOfMonth, hour, minute, second, DateTimeZone.getDefault())
-        }
 
 }

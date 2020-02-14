@@ -10,21 +10,23 @@ import black.bracken.jukepotserver.UseCase
 import black.bracken.jukepotserver.entity.EmailAddress
 import black.bracken.jukepotserver.entity.PasswordText
 import black.bracken.jukepotserver.entity.UserName
+import black.bracken.jukepotserver.entity.UserToken
+import black.bracken.jukepotserver.entity.repository.TokenRepository
 import black.bracken.jukepotserver.entity.repository.UserRepository
 import black.bracken.jukepotserver.ext.toText
 import java.security.SecureRandom
 import java.time.ZonedDateTime
-import java.util.*
 import javax.crypto.SecretKeyFactory
 import javax.crypto.spec.PBEKeySpec
 
 class RegisterUser(
-    private val userRepository: UserRepository
-) : UseCase<RegisterUser.Input, Either<ErrorResponse, UUID>> {
+    private val userRepository: UserRepository,
+    private val tokenRepository: TokenRepository
+) : UseCase<RegisterUser.Input, Either<ErrorResponse, UserToken>> {
 
     data class Input(val email: String, val password: String, val userName: String)
 
-    override fun invoke(inputTransferObject: Input): Either<ErrorResponse, UUID> {
+    override fun invoke(inputTransferObject: Input): Either<ErrorResponse, UserToken> {
         val email = EmailAddress(inputTransferObject.email)
             ?: return InvalidParameter("Address").left()
 
@@ -38,7 +40,8 @@ class RegisterUser(
         val registeredUser = userRepository.registerUser(email, hashedPassword, salt, name, ZonedDateTime.now())
             ?: return InternalError().left()
 
-        return registeredUser.uuid.right()
+        return tokenRepository.generateToken(registeredUser.uuid)?.right()
+            ?: InternalError().left()
     }
 
     // TODO: type return value

@@ -6,4 +6,5 @@ dependencies {
     Dep.Exposed.implementedSet.forEach { implementation(it) }
 
     implementation(project(":entity"))
+    implementation(project(":commonLib"))
 }

@@ -5,6 +5,7 @@ dependencies {
     Dep.GradlePlugin.implementedSet.forEach { implementation(it) }
     Dep.Arrow.implementedSet.forEach { implementation(it) }
 
+    implementation(project(":entity"))
     implementation(project(":commonLib"))
     implementation(project(":usecase"))
 }
