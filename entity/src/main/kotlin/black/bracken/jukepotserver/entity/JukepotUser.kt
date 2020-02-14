@@ -1,6 +1,6 @@
 package black.bracken.jukepotserver.entity
 
-import org.joda.time.LocalDateTime
+import java.time.ZonedDateTime
 import java.util.*
 
 data class JukepotUser(
@@ -8,5 +8,5 @@ data class JukepotUser(
     val email: EmailAddress,
     val authenticationHash: AuthenticationHash,
     val name: UserName,
-    val registeredAt: LocalDateTime
+    val registeredAt: ZonedDateTime
 )

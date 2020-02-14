@@ -12,8 +12,8 @@ import black.bracken.jukepotserver.entity.PasswordText
 import black.bracken.jukepotserver.entity.UserName
 import black.bracken.jukepotserver.entity.repository.UserRepository
 import black.bracken.jukepotserver.ext.toText
-import org.joda.time.LocalDateTime
 import java.security.SecureRandom
+import java.time.ZonedDateTime
 import java.util.*
 import javax.crypto.SecretKeyFactory
 import javax.crypto.spec.PBEKeySpec
@@ -35,7 +35,7 @@ class RegisterUser(
             ?: return InvalidParameter("UserName").left()
 
         val (hashedPassword, salt) = password.text.hash()
-        val registeredUser = userRepository.registerUser(email, hashedPassword, salt, name, LocalDateTime.now())
+        val registeredUser = userRepository.registerUser(email, hashedPassword, salt, name, ZonedDateTime.now())
             ?: return InternalError().left()
 
         return registeredUser.uuid.right()

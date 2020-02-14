@@ -35,7 +35,3 @@ private data class RegisterRequest(
     val email: String,
     val password: String
 )
-
-private data class NewResponse(
-    val uuid: String
-)

@@ -7,8 +7,13 @@ import black.bracken.jukepotserver.entity.JukepotUser
 import black.bracken.jukepotserver.entity.UserName
 import black.bracken.jukepotserver.entity.repository.UserRepository
 import org.jetbrains.exposed.sql.transactions.transaction
-import org.joda.time.LocalDateTime
+import org.joda.time.DateTime
+import org.joda.time.DateTimeZone
+import java.time.ZoneId
 import java.util.*
+
+private typealias JodaDateTime = DateTime
+private typealias JavaDateTime = java.time.ZonedDateTime
 
 class MariaUserRepository : UserRepository {
 
@@ -21,7 +26,7 @@ class MariaUserRepository : UserRepository {
                 email = EmailAddress(user.email) ?: return@transaction null,
                 authenticationHash = AuthenticationHash(user.hashedPassword, user.passwordSalt),
                 name = UserName(user.name) ?: return@transaction null,
-                registeredAt = user.registeredAt.toLocalDateTime()
+                registeredAt = user.registeredAt.toJavaDateTime()
             )
         }
 
@@ -30,7 +35,7 @@ class MariaUserRepository : UserRepository {
         hashedPassword: String,
         passwordSalt: String,
         name: UserName,
-        registeredAt: LocalDateTime
+        registeredAt: JavaDateTime
     ): JukepotUser? =
         transaction {
             User.new {
@@ -38,7 +43,7 @@ class MariaUserRepository : UserRepository {
                 this.hashedPassword = hashedPassword
                 this.passwordSalt = passwordSalt
                 this.name = name.text
-                this.registeredAt = registeredAt.toDateTime()
+                this.registeredAt = registeredAt.toJodaDateTime()
             }.toJukepotUser()
         }
 
@@ -47,9 +52,28 @@ class MariaUserRepository : UserRepository {
         val email = EmailAddress(email) ?: return null
         val authenticationHash = AuthenticationHash(hashedPassword, passwordSalt)
         val name = UserName(name) ?: return null
-        val registeredAt = registeredAt.toLocalDateTime() ?: return null
+        val registeredAt = registeredAt
 
-        return JukepotUser(uuid, email, authenticationHash, name, registeredAt)
+        return JukepotUser(uuid, email, authenticationHash, name, registeredAt.toJavaDateTime())
     }
+
+    private fun JodaDateTime.toJavaDateTime(): JavaDateTime =
+        run {
+            JavaDateTime.of(
+                year,
+                monthOfYear,
+                dayOfMonth,
+                hourOfDay,
+                minuteOfHour,
+                secondOfMinute,
+                0,
+                ZoneId.systemDefault()
+            )
+        }
+
+    private fun JavaDateTime.toJodaDateTime(): JodaDateTime =
+        run {
+            JodaDateTime(year, monthValue, dayOfMonth, hour, minute, second, DateTimeZone.getDefault())
+        }
 
 }

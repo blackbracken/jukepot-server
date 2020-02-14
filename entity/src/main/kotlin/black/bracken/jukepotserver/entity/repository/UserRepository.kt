@@ -3,7 +3,7 @@ package black.bracken.jukepotserver.entity.repository
 import black.bracken.jukepotserver.entity.EmailAddress
 import black.bracken.jukepotserver.entity.JukepotUser
 import black.bracken.jukepotserver.entity.UserName
-import org.joda.time.LocalDateTime
+import java.time.ZonedDateTime
 import java.util.*
 
 interface UserRepository {
@@ -15,7 +15,7 @@ interface UserRepository {
         hashedPassword: String,
         passwordSalt: String,
         name: UserName,
-        registeredAt: LocalDateTime
+        registeredAt: ZonedDateTime
     ): JukepotUser?
 
 }
