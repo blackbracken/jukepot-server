@@ -44,21 +44,19 @@ class RegisterUser(
             ?: InternalError().left()
     }
 
-    // TODO: type return value
-    private fun String.hash(): Pair<String, String> {
+    private data class HashWithSalt(val hash: String, val salt: String)
+
+    private fun String.hash(): HashWithSalt {
         val algorithm = "PBKDF2WithHmacSHA256"
         val stretchingCount = 1024
         val keyLength = 256
 
         val keyFactory = SecretKeyFactory.getInstance(algorithm)
-        val salt = Array<Byte>(32) { 0 }.toByteArray().apply {
-            SecureRandom().nextBytes(this)
-        }
+        val salt = Array<Byte>(32) { 0 }.toByteArray().apply { SecureRandom().nextBytes(this) }
         val keySpec = PBEKeySpec(this.toCharArray(), salt, stretchingCount, keyLength)
         val secretKey = keyFactory.generateSecret(keySpec)
 
-        return secretKey.encoded.toText()
-            .let { hashedPassword -> hashedPassword to salt.toText() }
+        return HashWithSalt(secretKey.encoded.toText(), salt.toText())
     }
 
 }

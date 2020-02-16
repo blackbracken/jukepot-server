@@ -1,6 +1,6 @@
 package dependencies
 
-@Suppress("unused")
+@Suppress("unused", "MemberVisibilityCanBePrivate", "SpellCheckingInspection")
 object Dep {
 
     object GradlePlugin : DependencyCategory {
